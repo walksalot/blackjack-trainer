@@ -259,6 +259,7 @@ function showFeedback(result) {
             <div class="feedback-wrong">You chose: ${ACTION_NAMES[result.userAction]}</div>
             <div class="feedback-correct">Correct: ${ACTION_NAMES[result.correctAction]}</div>
             <div class="feedback-explanation">${result.explanation}</div>
+            <div class="feedback-continue">Press <kbd>SPACE</kbd> to continue</div>
         </div>
     `;
     feedbackEl.classList.add('show');

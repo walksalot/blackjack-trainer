@@ -256,15 +256,11 @@ export class GameEngine {
 
     /**
      * Check if user action matches correct action
+     * In this trainer, we always have exactly 2 cards, so all actions are available.
+     * User must select the mathematically optimal play.
      */
     isActionCorrect(userAction, correctAction) {
-        if (userAction === correctAction) return true;
-
-        // Handle equivalent actions:
-        // - If correct is Double but user hits, that's acceptable (can't always double)
-        if (correctAction === 'D' && userAction === 'H') return true;
-
-        return false;
+        return userAction === correctAction;
     }
 
     /**
