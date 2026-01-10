@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackjack Strategy Trainer | Cosmo High Limit</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body tabindex="0">
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1>BJ TRAINER</h1>
+                <span class="subtitle">Cosmo High Limit</span>
+            </div>
+            <div class="stats-bar">
+                <div class="stat">
+                    <span class="stat-label">Streak</span>
+                    <span class="stat-value" id="streak">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Accuracy</span>
+                    <span class="stat-value" id="accuracy">0% (0/0)</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Best</span>
+                    <span class="stat-value" id="best-streak">0</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <select id="mode-select" class="mode-select">
+                    <option value="critical">Critical Hands</option>
+                    <option value="hard">Hard Focus</option>
+                    <option value="balanced" selected>Balanced</option>
+                    <option value="random">Full Random</option>
+                </select>
+                <button id="settings-btn" class="settings-btn" aria-label="Settings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Game Area -->
+        <main class="game-area">
+            <!-- Dealer Section -->
+            <section class="dealer-section">
+                <h2 class="section-label">DEALER SHOWS</h2>
+                <div id="dealer-cards" class="cards-container dealer">
+                    <!-- Cards rendered here -->
+                </div>
+            </section>
+
+            <!-- Player Section -->
+            <section class="player-section">
+                <h2 class="section-label">YOUR HAND</h2>
+                <div id="player-cards" class="cards-container player">
+                    <!-- Cards rendered here -->
+                </div>
+                <div id="hand-label" class="hand-label">Hard 16</div>
+            </section>
+
+            <!-- Feedback -->
+            <div id="feedback" class="feedback">
+                <!-- Feedback content -->
+            </div>
+        </main>
+
+        <!-- Action Buttons -->
+        <footer class="actions">
+            <div class="action-buttons">
+                <button id="btn-H" class="action-btn hit">
+                    <span class="btn-label">HIT</span>
+                    <kbd>H</kbd>
+                </button>
+                <button id="btn-S" class="action-btn stand">
+                    <span class="btn-label">STAND</span>
+                    <kbd>S</kbd>
+                </button>
+                <button id="btn-D" class="action-btn double">
+                    <span class="btn-label">DOUBLE</span>
+                    <kbd>D</kbd>
+                </button>
+                <button id="btn-P" class="action-btn split">
+                    <span class="btn-label">SPLIT</span>
+                    <kbd>P</kbd>
+                </button>
+                <button id="btn-R" class="action-btn surrender">
+                    <span class="btn-label">SURRENDER</span>
+                    <kbd>R</kbd>
+                </button>
+            </div>
+            <p class="keyboard-hint">Use keyboard shortcuts for rapid training</p>
+        </footer>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Statistics & Settings</h2>
+                <button id="close-modal" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <section class="modal-section">
+                    <h3>Lifetime Statistics</h3>
+                    <div id="lifetime-stats" class="lifetime-stats">
+                        <!-- Stats rendered here -->
+                    </div>
+                </section>
+                <section class="modal-section">
+                    <h3>Weak Spots</h3>
+                    <p class="weak-spots-hint">Hands you miss most often:</p>
+                    <div id="weak-spots" class="weak-spots">
+                        <!-- Weak spots rendered here -->
+                    </div>
+                </section>
+                <section class="modal-section">
+                    <h3>Cosmo High Limit Rules</h3>
+                    <ul class="rules-list">
+                        <li>6-deck shoe</li>
+                        <li>Dealer stands on soft 17</li>
+                        <li>Double after split allowed</li>
+                        <li>Late surrender allowed</li>
+                        <li>Blackjack pays 3:2</li>
+                    </ul>
+                </section>
+                <div class="modal-actions">
+                    <button id="reset-stats" class="reset-btn">Reset All Statistics</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>
